@@ -1,0 +1,39 @@
+import random
+
+# possible words for the game
+wordbank = ['hello', 'chud', 'broke', 'skididi', 'light', 'wordle']
+
+# random word is be chosen and we must convert to word to _ to hide the answer
+word = random.choice(wordbank)
+guessedword = ['_'] * len(word)
+
+# ammont of allowedn attemps before gameover
+attempts = 10
+
+#game loop
+# while the player still has guesses print the current status of the hidden word
+while attempts > 0:
+    print('\Current word: ' + ' '.join(guessedword))
+    guess = input('Guess a letter: ').lower()
+    # when a player guesses a letter, it will compare the guess with each letter in the word to 
+    # see if the guessed letter is in the word. IF it is letter will be revealed and congrats
+    if guess in word:
+        for i in range(len(word)):
+            if word[i] == guess:
+                guessedword[i] = guess
+        print('Great guess!')
+    else:
+        # on failed attempts - attempt and show fail message
+        attempts -= 1
+        print('Wrong guess! Attemps left: ' + str(attempts))
+
+    # when word is fully revealed, congrats message and game ends
+    if '_' not in guessedword:
+        print('\nCongratulations!! You guessed the word: ' + word)
+        break
+
+    # when player runs out of attemps and word is not fully revealed game over
+    if attempts == 0 and '_' in guessedword:
+        print('\nYou\'ve run out of attemps! The word was: ' + word)
+    
+     
